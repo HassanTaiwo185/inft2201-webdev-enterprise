@@ -31,12 +31,13 @@ http
             const database = fs.readFileSync("./users.txt", "utf8").trim().split("\n");
 
 
-            // return a 401 error if the username isn't found
+
             const matchedUser = database.find((line) => {
               const [userId, username, password, role] = line.split(",");
               return username === body.username;
             });
 
+            // return a 401 error if the username isn't found
             if (!matchedUser) {
             res.writeHead(401, { "Content-Type": "application/json" });
             res.end(JSON.stringify({ error: `${body.username} not found` }));
